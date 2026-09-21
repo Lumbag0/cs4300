@@ -21,6 +21,7 @@ def main():
     file = Path(__file__).parent.parent / "task6_read_me.txt"
     file = open_file(file)
     total_words = count_words(file)
+    print(f"Total words in file {total_words}")
 
 if __name__ == "__main__":
     main()
