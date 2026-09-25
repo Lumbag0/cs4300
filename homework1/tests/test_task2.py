@@ -1,14 +1,27 @@
 from src.task2 import add, same_length, combine_string 
+import pytest
 
-def test_add():
-    assert add(1, 2) == 3
-    assert add(1.5, 1.5) == 3
-    assert add(1, 2.5) == 3.5
+@pytest.mark.parametrize("a, b, expected", [
+    (1, 2, 3),
+    (1.5, 1.5, 3),
+    (1, 2.5, 3.5)
+])
 
-def test_same_length():
-    assert same_length("Potato", "Tomato") == True
-    assert same_length("Success", "Fail") == False
+def test_add(a, b, expected):
+    assert add(a, b) == expected
 
-def test_combine_string():
-    assert combine_string("What", "ToDO") == "WhatToDO"
-    assert combine_string("What", " am I doing") == "What am I doing"
+@pytest.mark.parametrize("a, b, expected", [
+    ("Potato", "Tomato", True),
+    ("Success", "Fail", False)
+])
+
+def test_same_length(a, b, expected):
+    assert same_length(a, b) == expected
+
+@pytest.mark.parametrize("a, b, expected", [
+    ("What", "ToDO", "WhatToDO"),
+    ("What", " am I doing", "What am I doing")
+])
+
+def test_combine_string(a, b, expected):
+    assert combine_string(a, b) == expected
