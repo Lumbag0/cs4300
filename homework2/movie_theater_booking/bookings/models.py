@@ -22,7 +22,7 @@ class Booking(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     seat = models.ForeignKey(Seat, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
+    booking_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         # Set so one seat can be booked only once

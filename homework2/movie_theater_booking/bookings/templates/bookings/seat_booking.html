@@ -6,6 +6,7 @@
 <h2>Book a seat for {{ movie.title }}</h2>
 
 <div class="d-flex flex-wrap gap-2 mt-3">
+    {# Creates rows with a subsequent letter being behind the former i.e. the B is behind the A row #}
     {% for seat in seats %}
         {% ifchanged seat.seat_number|slice:":1" %}
             {% if not forloop.first %}
