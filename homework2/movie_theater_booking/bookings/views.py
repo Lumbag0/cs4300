@@ -8,6 +8,9 @@ def index(request):
     movies = Movie.objects.all()
     return render(request, "bookings/movie_list.html", {"movies":movies})
 
+def booking_history(request):
+    return render(request, "bookings/booking_history.html")
+
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
