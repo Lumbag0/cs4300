@@ -21,6 +21,7 @@
                     <div class="card-footer text-muted">
                         Release Date: {{ movie.release_date }}<br>
                         Duration: {{ movie.duration }} minutes <br>
+                        <a href="{% url 'book_seat' movie.id %}" class="btn btn-primary btn-sm mt-2">Book Now</a>
                     </div>
                 </div>
             </div>

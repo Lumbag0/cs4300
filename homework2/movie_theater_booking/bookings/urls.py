@@ -10,5 +10,6 @@ router.register(r"bookings", views.BookingViewSet, basename="bookings")
 urlpatterns = [
     path("", views.index, name="index"),
     path("api/", include(router.urls)),
-    path("booking_history", views.booking_history, name="booking_history")
+    path("booking_history", views.booking_history, name="booking_history"),
+    path("movies/<int:movie_id>/book/", views.book_seat, name="book_seat")
 ]
