@@ -13,7 +13,8 @@ def index(request):
 
 @login_required
 def booking_history(request):
-    return render(request, "bookings/booking_history.html")
+    bookings = Booking.objects.filter(user=request.user).select_related("movie", "seat")
+    return render(request, "bookings/booking_history.html", {"bookings": bookings})
 
 @login_required
 def book_seat(request, movie_id):
@@ -50,6 +51,8 @@ class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
 
+    def get_queryset(self):
+        return Booking.objects.filter(user=self.request.user)
     def perform_create(self, serializer):
         seat = serializer.validated_data["seat"]
         if seat.booking_status == True:
