@@ -22,14 +22,15 @@ def book_seat(request, movie_id):
 
     if request.method == "GET":
         seats = Seat.objects.order_by("seat_number")
-        return render(request, "bookings/seat_booking.html", {"movie": movie, "seats": seats})
+        booked_seat_ids = set(Booking.objects.filter(movie=movie).values_list("seat_id", flat=True))
+        return render(request, "bookings/seat_booking.html", {"movie": movie, "seats":seats, "booked_seat_ids": booked_seat_ids})
     
     elif request.method == "POST":
         seat_id = get_object_or_404(Seat, pk=request.POST.get("seat"))
 
         # Present an error message if the user tries to select a seat that is already taken
         # Else book requested seat
-        if seat_id.booking_status == True:
+        if Booking.objects.filter(movie=movie, seat=seat_id).exists():
             messages.error(request, "This seat is already booked. Please try another")
         else:
             Booking.objects.create(movie=movie, seat=seat_id, user=request.user)
@@ -53,11 +54,11 @@ class BookingViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Booking.objects.filter(user=self.request.user)
+    
     def perform_create(self, serializer):
         seat = serializer.validated_data["seat"]
-        if seat.booking_status == True:
+        movie = serializer.validated_data["movie"]
+        if Booking.objects.filter(movie=movie, seat=seat).exists:
             raise ValidationError("ERROR: This seat is already booked")
         else:
             serializer.save(user=self.request.user)
-            seat.booking_status = True
-            seat.save()

@@ -20,7 +20,7 @@
         <form method="post" class="m-0">
             {% csrf_token %}
             <input type="hidden" name="seat" value="{{ seat.id }}">
-            {% if seat.booking_status == True %}
+            {% if seat.id in booked_seat_ids %}
                 <button type="button" class="btn btn-secondary" disabled>{{ seat.seat_number }}</button>
             {% else %}
                 <button type="submit" class="btn btn-outline-success">{{ seat.seat_number }}</button>
