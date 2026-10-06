@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import ValidationError
 from .serializers import MovieSerializer, SeatSerializer, BookingSerializer
 from .models import Movie, Seat, Booking
@@ -51,7 +52,7 @@ class SeatViewSet(viewsets.ModelViewSet):
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializer
-
+    permission_classes = [IsAuthenticated]
     def get_queryset(self):
         return Booking.objects.filter(user=self.request.user)
     
