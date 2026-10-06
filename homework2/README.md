@@ -1,5 +1,7 @@
 # Homework 2 -- CS-4300
-## How to Run HW2 Movie Theater Project
+## Link to Render:
+- https://cs4300-b7ac.onrender.com/
+## How to Run HW2 Movie Theater Project Locally
 ### Step 1: Clone the repository
 ```bash
 git clone https://github.com/Lumbag0/cs4300
